@@ -2,19 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-    
 </head>
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
             <h2 class="text-center mb-4">Inicio Sesión</h2>
-            <h4>Mi Tiendita</h4>
             <form action="authenticate.php" method="POST">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
+                    <label for="email" class="form-label">Correo Electrónico</label>
                     <input type="email" id="email" name="email" class="form-control" required>
                 </div>
                 <div class="mb-3">
@@ -25,8 +23,5 @@
             </form>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
