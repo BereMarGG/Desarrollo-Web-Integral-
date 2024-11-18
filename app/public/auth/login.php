@@ -10,7 +10,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
             <h2 class="text-center mb-4">Inicio Sesión</h2>
-            <form action="authenticate.php" method="POST">
+            <form action="login_process.php" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
                     <input type="email" id="email" name="email" class="form-control" required>
@@ -21,6 +21,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
             </form>
+            <div class="text-center mt-3">
+                <span>¿No tienes una cuenta?</span>
+                <a href="register.php" class="text-decoration-none">Regístrate aquí</a>
+            </div>
         </div>
     </div>
 </body>

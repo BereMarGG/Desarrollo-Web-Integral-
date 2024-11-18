@@ -2,7 +2,7 @@
 
 
 
-    $conn = new mysqli("localhost","root","","bd_quickyfast");
+    $conn = new mysqli("localhost","root","B4ckintha2024NEW","bd_quickyfast");
 
     if($conn->connect_error){
         die("Connection failed: " . $conn->connect_error);
