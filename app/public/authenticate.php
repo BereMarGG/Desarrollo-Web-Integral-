@@ -33,13 +33,19 @@ if ($result->num_rows > 0) {
         // Guardar datos del usuario en la sesión
         $_SESSION['usuario'] = $user['nombre'];
         $_SESSION['rol'] = $user['idrol'];
-        header("Location: home.php");
+        
+        // Redirigir según el rol
+        if ($user['idrol'] == 1) { // Admin
+            header("Location: home.php");
+        } elseif ($user['idrol'] == 2) { // Cliente
+            header("Location: client_home.php");
+        } else {
+            header("Location: home.php");
+        }
         exit();
     } else {
         echo "<script>alert('Contraseña incorrecta'); window.history.back();</script>";
     }
-} else {
-    echo "<script>alert('Usuario no encontrado'); window.history.back();</script>";
 }
 
 // Cerrar la conexión
