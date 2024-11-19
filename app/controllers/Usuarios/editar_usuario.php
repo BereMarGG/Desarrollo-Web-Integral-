@@ -1,21 +1,14 @@
 <?php
+require_once '../../config/database.php'; // Asegúrate de tener la conexión correcta
 
-session_start();
-
-// Verificar si el usuario tiene el rol adecuado (suponiendo que el rol 1 es para administradores)
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
-    header("Location: home.php");
-    exit();
+// Verificar la conexión a la base de datos
+if (!$conn) {
+    die("Conexión fallida: " . mysqli_connect_error());
 }
 
-// Incluir el archivo de configuración de la base de datos
-require_once '../../config/database.php';
-
-
-// Verificar si el formulario ha sido enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener los datos del formulario
-
+    $idusuario = $_POST['idusuario'];
     $idrol = $_POST['idrol'];
     $nombre = $_POST['nombre'];
     $tipo_documento = $_POST['tipo_documento'];
@@ -24,26 +17,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = $_POST['telefono'];
     $email = $_POST['email'];
 
-    $sql = "UPDATE usuario SET idrol = ?, nombre = ?, tipo_documento = ?, num_documento = ?, direccion = ?, telefono = ?, email = ? WHERE idusuario = ?";
+
+
+    
+
+    // Preparar la consulta de actualización
+    $sql = "UPDATE usuario SET nombre = ?, tipo_documento = ?, num_documento = ?, direccion = ?, telefono = ?, email = ? WHERE idusuario = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $idrol, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email);
+
+    // Verificar si la preparación fue exitosa
+    if ($stmt === false) {
+        die("Error en la preparación de la consulta: " . $conn->error);
+    }
+
+    // Enlazar los parámetros
+    $stmt->bind_param("ssssssi", $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $idusuario);
 
 
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
 
+        header("Location: ../../public/crud_usuario.php");
+        exit();
+        
+    } else {
 
-  
+        header("Location: ../../public/home.php");
+        exit();
+        
+
+    }
 }
-
-// Consultar los roles disponibles para el select
-
-/*
-$roles_sql = "SELECT idrol, nombre_rol FROM rol";
-$roles_result = $conn->query($roles_sql);
-if (!$roles_result) {
-    die("Error al obtener los roles: " . $conn->error);
-}
-
-
-*/
 
 ?>

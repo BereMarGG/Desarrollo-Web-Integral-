@@ -252,7 +252,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="editIdrol" class="form-label">Rol</label>
-                        <select class="form-select" id="editIdrol" name="idrol" required>
+                        <select class="form-select" id="editIdrol" name="idrol" required disabled>
                             <option value="" disabled selected>Seleccionar rol</option>
                             <?php
                                 // Conexión a la base de datos
@@ -271,6 +271,7 @@ if (!$result) {
                             ?>
                         </select>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
                 </form>
             </div>
