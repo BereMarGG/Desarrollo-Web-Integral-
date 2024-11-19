@@ -26,7 +26,7 @@ if (!$result) {
 <body>
 <div class="container mt-5">
     <h2>Gestión de Artículos</h2>
-    <a href="agregar_usuario.php" class="btn btn-primary mb-3">Agregar Usuario</a>
+    <a href="../controllers/Usuarios/agregar_usuario.php" class="btn btn-primary mb-3">Agregar Usuario</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -62,8 +62,8 @@ if (!$result) {
                         <td><?= htmlspecialchars($row['email']); ?></td>
                         <td><?= htmlspecialchars($row['estado']); ?></td>
                         <td>
-                            <a href="editar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="eliminar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="../controllers/Usuarios/editar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="../controllers/Usuarios/eliminar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
