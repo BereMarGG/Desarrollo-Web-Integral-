@@ -11,11 +11,9 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
 // Incluir el archivo de configuración de la base de datos
 require_once '../../config/database.php';
 
-
 // Verificar si el formulario ha sido enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
-
     $idrol = $_POST['idrol'];
     $nombre = $_POST['nombre'];
     $tipo_documento = $_POST['tipo_documento'];
@@ -25,17 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
-
-    // Cifrar la contraseña
-    $password_hash = hash('sha256', $password); // Usar sha256 para cifrar
+    // Cifrar la contraseña (SHA-256) y convertir el hash binario a formato hexadecimal
+    $password_hash = hash('sha256', $password, true); // Genera el hash binario
+    $password_hash_hex = bin2hex($password_hash); // Convierte el hash binario a formato hexadecimal
+    
+    // Establecer el valor de estado
+    $estado = 1; // El estado 1 significa "activo"
 
     // Consultar la base de datos para insertar el nuevo usuario
-    $sql = "INSERT INTO usuario (idrol,nombre, tipo_documento, num_documento, direccion, telefono, email, password,  estado) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)"; // El estado 1 significa "activo"
+    $sql = "INSERT INTO usuario (idrol, nombre, tipo_documento, num_documento, direccion, telefono, email, password, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"; // Ahora estamos pasando un valor para "estado"
+    
     $stmt = $conn->prepare($sql);
 
     // Vincular los parámetros al prepared statement
-    $stmt->bind_param("sssssssi", $idrol, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $password_hash);
+    // Usamos 's' para todos los campos de texto, 'b' para el parámetro binario y 'i' para el parámetro entero estado
+    $stmt->bind_param("ssssssssi", $idrol, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $password_hash_hex, $estado);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
@@ -47,17 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Error al agregar el usuario: " . $conn->error);
     }
 }
-
-// Consultar los roles disponibles para el select
-
-/*
-$roles_sql = "SELECT idrol, nombre_rol FROM rol";
-$roles_result = $conn->query($roles_sql);
-if (!$roles_result) {
-    die("Error al obtener los roles: " . $conn->error);
-}
-
-
-*/
 
 ?>
