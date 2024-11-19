@@ -18,6 +18,12 @@ if ($conn->connect_error) {
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
+
+
+
+
+
+
 // Preparar la consulta para buscar al usuario
 $sql = "SELECT * FROM usuario WHERE email = ?";
 $stmt = $conn->prepare($sql);
@@ -27,8 +33,9 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
-    
-    // Verificar la contraseña
+
+
+
     if (hash('sha256', $password) === $user['password']) {
         // Guardar datos del usuario en la sesión
         $_SESSION['usuario'] = $user['nombre'];
@@ -43,6 +50,7 @@ if ($result->num_rows > 0) {
             header("Location: home.php");
         }
         exit();
+    
     } else {
         echo "<script>alert('Contraseña incorrecta'); window.history.back();</script>";
     }

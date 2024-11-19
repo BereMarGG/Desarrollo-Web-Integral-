@@ -36,7 +36,7 @@ $rol = $_SESSION['rol'];
                             <a class="nav-link" href="crud_articulos.php">CRUD Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="crud_usuarios.php">CRUD Usuarios</a>
+                            <a class="nav-link" href="crud_usuario.php">CRUD Usuarios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="crud_compras.php">CRUD Compras</a>

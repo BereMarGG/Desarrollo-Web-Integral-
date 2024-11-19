@@ -9,7 +9,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
 require_once '../config/database.php';
 
 // Consultar artículos
-$sql = "SELECT * FROM articulo";
+$sql = "SELECT idusuario, nombre, tipo_documento, num_documento, direccion, telefono, email, estado FROM usuario WHERE estado = 1";
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -20,20 +20,25 @@ if (!$result) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>CRUD Artículos</title>
+    <title>CRUD USUARIOS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
     <h2>Gestión de Artículos</h2>
-    <a href="agregar_articulo.php" class="btn btn-primary mb-3">Agregar Artículo</a>
+    <a href="agregar_usuario.php" class="btn btn-primary mb-3">Agregar Usuario</a>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Precio</th>
-                <th>Acciones</th>
+                <th>tipo_documento</th>
+                <th>num_documento</th>
+                <th>Dirrecion</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Estatus</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -48,12 +53,17 @@ if (!$result) {
                 <!-- Iterar artículos si hay filas -->
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= htmlspecialchars($row['id']); ?></td>
+                        <td><?= htmlspecialchars($row['idusuario']); ?></td>
                         <td><?= htmlspecialchars($row['nombre']); ?></td>
-                        <td><?= htmlspecialchars($row['precio']); ?></td>
+                        <td><?= htmlspecialchars($row['tipo_documento']); ?></td>
+                        <td><?= htmlspecialchars($row['num_documento']); ?></td>
+                        <td><?= htmlspecialchars($row['direccion']); ?></td>
+                        <td><?= htmlspecialchars($row['telefono']); ?></td>
+                        <td><?= htmlspecialchars($row['email']); ?></td>
+                        <td><?= htmlspecialchars($row['estado']); ?></td>
                         <td>
-                            <a href="editar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="eliminar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="editar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="eliminar_usuario.php?id=<?= htmlspecialchars($row['idusuario']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
