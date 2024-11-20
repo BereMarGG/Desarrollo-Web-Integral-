@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -52,7 +52,7 @@ $rol = $_SESSION['rol'];
                         <span class="navbar-text text-light">Hola, <?= htmlspecialchars($nombre); ?></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-danger ms-2" href="logout.php">Cerrar Sesión</a>
+                        <a class="nav-link btn btn-danger ms-2" href="auth/logout.php">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
