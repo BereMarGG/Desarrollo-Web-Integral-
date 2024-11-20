@@ -39,6 +39,10 @@ $rol = $_SESSION['rol'];
                             <a class="nav-link" href="crud_usuario.php">CRUD Usuarios</a>
                         </li>
                         <li class="nav-item">
+                        <a class="nav-link" href="crud_categorias.php">CRUD CATEGORIAS</a>
+
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="crud_compras.php">CRUD Compras</a>
                         </li>
                     <?php elseif ($rol == 2): // Cliente ?>

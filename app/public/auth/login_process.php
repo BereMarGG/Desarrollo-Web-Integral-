@@ -8,8 +8,8 @@ session_start();
 // Configuración de conexión a la base de datos
 $host = 'localhost';
 $db = 'bd_quickyfast'; // Cambia esto por el nombre de tu base de datos
-$user = 'quack'; // Cambia esto si tu usuario no es root
-$password = 'mysql'; // Agrega la contraseña si aplica
+$user = 'root'; // Cambia esto si tu usuario no es root
+$password = ''; // Agrega la contraseña si aplica
 
 // Definir una clave secreta para mayor seguridad
 $secret_key = '1015D48D6DS21A5F4F6E8S1X21C3VF8E4S8CV41F2.DSXC1V6F84D6C';
@@ -35,8 +35,17 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
 
-    $hashed_password = hash('sha256', $password . $secret_key);
+    $hashed_password = hash('sha256', $password . $secret_key, true);
+
+
+    //$password_hash = hash('sha256', $password, true); // Genera el hash binario
+   
+   
+    $password_hash_hex = bin2hex($hashed_password); // Convierte el hash binario a formato hexadecimal
     
+
+
+
     // Verificar la contraseña
     if ($hashed_password === $user['password']) {
         // Guardar datos del usuario en la sesión
