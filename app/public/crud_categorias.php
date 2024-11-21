@@ -66,14 +66,10 @@ if (!$result) {
                         </td>
                         <td>
                         <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" 
-                            data-id="<?= htmlspecialchars($row['idusuario']); ?>"
+                            data-id="<?= htmlspecialchars($row['idcategoria']); ?>"
                             data-nombre="<?= htmlspecialchars($row['nombre']); ?>"
-                            data-tipo-documento="<?= htmlspecialchars($row['tipo_documento']); ?>"
-                            data-num-documento="<?= htmlspecialchars($row['num_documento']); ?>"
-                            data-direccion="<?= htmlspecialchars($row['direccion']); ?>"
-                            data-telefono="<?= htmlspecialchars($row['telefono']); ?>"
-                            data-email="<?= htmlspecialchars($row['email']); ?>"
-                            data-rol="<?= htmlspecialchars(isset($row['idrol']) ? $row['idrol'] : ''); ?>">
+                            data-desc="<?= htmlspecialchars($row['descripcion']); ?>"
+>
                             Editar
                         </a>
 
@@ -171,56 +167,17 @@ if (!$result) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editUserForm" method="POST" action="../controllers/Usuarios/editar_usuario.php">
-                    <input type="hidden" id="editId" name="idusuario">
+                <form id="editUserForm" method="POST" action="../controllers/Categorias/editar_categoria.php">
+                    <input type="hidden" id="editId" name="idcategoria">
                     <div class="mb-3">
                         <label for="editNombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="editNombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
                         <label for="editTipoDocumento" class="form-label">Tipo de Documento</label>
-                        <input type="text" class="form-control" id="editTipoDocumento" name="tipo_documento" required>
+                        <input type="text" class="form-control" id="editDescripcion" name="descripcion" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="editNumDocumento" class="form-label">Número de Documento</label>
-                        <input type="text" class="form-control" id="editNumDocumento" name="num_documento" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editDireccion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="editDireccion" name="direccion" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editTelefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="editTelefono" name="telefono" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="editEmail" name="email" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="editIdrol" class="form-label">Rol</label>
-                        <select class="form-select" id="editIdrol" name="idrol" required disabled>
-                            <option value="" disabled selected>Seleccionar rol</option>
-                            <?php
-                                // Conexión a la base de datos
-                                require_once '../config/database.php';
-                                // Consultar los roles
-                                $sqlRoles = "SELECT idrol, nombre FROM rol";
-                                $resultRoles = $conn->query($sqlRoles);
-                                
-                                if ($resultRoles && $resultRoles->num_rows > 0) {
-                                    while ($row = $resultRoles->fetch_assoc()) {
-                                        echo "<option value='" . htmlspecialchars($row['idrol']) . "'>" . htmlspecialchars($row['nombre']) . "</option>";
-                                    }
-                                } else {
-                                    echo "<option>No hay roles disponibles</option>";
-                                }
-                            ?>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+                         <button type="submit" class="btn btn-primary">Actualizar Categoria</button>
                 </form>
             </div>
         </div>
@@ -228,28 +185,19 @@ if (!$result) {
 </div>
 
 <script>
-
 const editModal = document.getElementById('editModal');
         editModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget; // Botón que activó el modal
-            const userId = button.getAttribute('data-id');
-            const userName = button.getAttribute('data-nombre');
-            const userTipoDocumento = button.getAttribute('data-tipo-documento');
-            const userNumDocumento = button.getAttribute('data-num-documento');
-            const userDireccion = button.getAttribute('data-direccion');
-            const userTelefono = button.getAttribute('data-telefono');
-            const userEmail = button.getAttribute('data-email');
-            const userRol = button.getAttribute('data-rol');
+            const catId = button.getAttribute('data-id');
+            const catName = button.getAttribute('data-nombre');
+            const catdesc = button.getAttribute('data-desc');
+          
 
             // Actualizar el modal con los datos del usuario
-            document.getElementById('editId').value = userId;
-            document.getElementById('editNombre').value = userName;
-            document.getElementById('editTipoDocumento').value = userTipoDocumento;
-            document.getElementById('editNumDocumento').value = userNumDocumento;
-            document.getElementById('editDireccion').value = userDireccion;
-            document.getElementById('editTelefono').value = userTelefono;
-            document.getElementById('editEmail').value = userEmail;
-            document.getElementById('editIdrol').value = userRol;
+            document.getElementById('editId').value = catId;
+            document.getElementById('editNombre').value = catName;
+            document.getElementById('editDescripcion').value = catdesc;
+           
         });
 
     </script>
