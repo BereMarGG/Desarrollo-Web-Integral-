@@ -139,67 +139,23 @@ if (!$result) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Agregar Usuario</h5>
+                <h5 class="modal-title" id="addModalLabel">Agregar Categoria</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addUserForm" method="POST" action="../controllers/Usuarios/agregar_usuario.php">
+                <form id="addUserForm" method="POST" action="../controllers/Categorias/agregar_categoria.php">
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <label for="nombre_categoria" class="form-label">Nombre categoria</label>
+                        <input type="text" class="form-control" id="nombre_categoria" name="nombre_categoria" required>
                     </div>
                     <div class="mb-3">
-                        <label for="tipo_documento" class="form-label">Tipo de Documento</label>
-                        <input type="text" class="form-control" id="tipo_documento" name="tipo_documento" required>
+                        <label for="desc_categoria" class="form-label">Descripcion categoria</label>
+                        <input type="text" class="form-control" id="desc_categoria" name="desc_categoria" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="num_documento" class="form-label">Número de Documento</label>
-                        <input type="text" class="form-control" id="num_documento" name="num_documento" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="direccion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-
-                    <div class="mb-3">
-
-                    <label for="idrol" class="form-label">Rol</label>
-                        <select class="form-select" id="idrol" name="idrol" required>
-                            <option value="" disabled selected>Seleccionar rol</option>
-                            <?php
-                                // Conexión a la base de datos
-                                require_once '../config/database.php';
-                                
-                                // Consultar los roles
-                                $sqlRoles = "SELECT idrol, nombre FROM rol";
-                                $resultRoles = $conn->query($sqlRoles);
-                                
-                                if ($resultRoles && $resultRoles->num_rows > 0) {
-                                    while ($row = $resultRoles->fetch_assoc()) {
-                                        echo "<option value='" . htmlspecialchars($row['idrol']) . "'>" . htmlspecialchars($row['nombre']) . "</option>";
-                                    }
-                                } else {
-                                    echo "<option>No hay roles disponibles</option>";
-                                }
-                            ?>
-                        </select>
 
 
 
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                    <button type="submit" class="btn btn-primary">Agregar Categoria</button>
                 </form>
             </div>
         </div>
