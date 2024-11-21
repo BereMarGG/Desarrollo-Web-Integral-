@@ -80,7 +80,7 @@ if (!$result) {
                            
                             <!-- Botón para activar el modal de eliminación -->
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                    data-id="<?= htmlspecialchars($row['idusuario']); ?>" data-nombre="<?= htmlspecialchars($row['nombre']); ?>">
+                                    data-id="<?= htmlspecialchars($row['idcategoria']); ?>" data-nombre="<?= htmlspecialchars($row['nombre']); ?>">
                                 Eliminar
                             </button>
                         </td>
@@ -100,14 +100,14 @@ if (!$result) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar a este usuario?
+                ¿Estás seguro de que deseas eliminar este categoria?
                 <br><br>
                 <strong id="userName"></strong>
             </div>
             <div class="modal-footer">
                 <!-- Formulario para eliminar al usuario -->
-                <form id="deleteForm" method="POST" action="../controllers/Usuarios/eliminar_usuario.php">
-                    <input type="hidden" name="idusuario" id="userId">
+                <form id="deleteForm" method="POST" action="../controllers/Categorias/eliminar_categorias.php">
+                    <input type="hidden" name="idcategoria" id="cateId">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
@@ -123,11 +123,11 @@ if (!$result) {
     const deleteModal = document.getElementById('deleteModal');
     deleteModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget; // Botón que activó el modal
-        const userId = button.getAttribute('data-id');
+        const cateId = button.getAttribute('data-id');
         const userName = button.getAttribute('data-nombre');
 
         // Actualizar el modal con los datos del usuario
-        document.getElementById('userId').value = userId;
+        document.getElementById('cateId').value = cateId;
         document.getElementById('userName').textContent = userName;
     });
 </script>
