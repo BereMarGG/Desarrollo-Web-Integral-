@@ -1,6 +1,6 @@
 <?php
 // Crear la conexión
-$conn = new mysqli("localhost", "root", "", "bd_quickyfast");
+$conn = new mysqli("localhost", "quack", "mysql", "bd_quickyfast");
 
 // Verificar si hubo error en la conexión
 if ($conn->connect_error) {

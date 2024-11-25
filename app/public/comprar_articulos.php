@@ -19,6 +19,7 @@ $rol = $_SESSION['rol'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articulos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -35,6 +36,14 @@ $rol = $_SESSION['rol'];
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="comprar_articulos.php">Comprar Artículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="carrito.php">
+                        <i class="bi bi-cart-fill text-light" style="font-size: 1rem;"></i>
+                            <span class="position-absolute top-25 start-30 translate-middle badge rounded-pill bg-danger">
+                                <?= isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0; ?>
+                            </span>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -86,6 +95,14 @@ $rol = $_SESSION['rol'];
                             <p class='card-text'>{$articulo['descripcion']}</p>
                             <p class='card-text'>Precio: \${$articulo['precio_venta']}</p>
                             <p class='card-text'>Stock: {$articulo['stock']}</p>
+                            <form method='POST' action='../controllers/Articulos/agregar_carrito.php'>
+                                <input type='hidden' name='idarticulo' value='{$articulo['idarticulo']}'>
+                                <div class='mb-3'>
+                                    <label for='cantidad-{$articulo['idarticulo']}' class='form-label'>Cantidad</label>
+                                    <input type='number' name='cantidad' id='cantidad-{$articulo['idarticulo']}' class='form-control' min='1' max='{$articulo['stock']}' required>
+                                </div>
+                                <button type='submit' class='btn btn-success'>Añadir al Carrito</button>
+                            </form>
                         </div>
                     </div>
                 </div>
