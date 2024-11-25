@@ -13,7 +13,7 @@ if (isset($_POST['idusuario'])) {
     $idusuario = $_POST['idusuario'];
 
     // Preparar y ejecutar la consulta para eliminar el usuario
-    $sql = "UPDATE usuario SET estado = 3 WHERE idusuario = ?";
+    $sql = "UPDATE usuario SET estado = 0 WHERE idusuario = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idusuario);
 
