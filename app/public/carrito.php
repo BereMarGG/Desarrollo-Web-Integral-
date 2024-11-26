@@ -19,6 +19,7 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Carrito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-light">
@@ -73,16 +74,7 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
                         <tr>
                             <td><?= htmlspecialchars($item['nombre']); ?></td>
                             <td class="text-center">$<?= number_format($item['precio_venta'], 2); ?></td>
-                            <td class="text-center">
-                                <form action="actualizar_carrito.php" method="post" class="d-inline">
-                                    <input type="hidden" name="index" value="<?= $index; ?>">
-                                    <input type="number" name="cantidad"
-                                        value="<?= isset($item['cantidad']) ? htmlspecialchars($item['cantidad']) : 1; ?>"
-                                        min="1" max="<?= htmlspecialchars($item['stock'] ?? 1); ?>"
-                                        class="form-control form-control-sm w-50 mx-auto">
-                                    <button type="submit" class="btn btn-primary btn-sm mt-1">Actualizar</button>
-                                </form>
-                            </td>
+                            <td class="text-center"><?= htmlspecialchars($item['cantidad']); ?></td>
                             <td class="text-center">$<?= number_format($totalArticulo, 2); ?></td>
                             <td class="text-center">
                                 <form action="../controllers/Carrito/eliminar_del_carrito.php" method="post">
@@ -103,7 +95,7 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
             </table>
             <div class="text-end">
                 <a href="comprar_articulos.php" class="btn btn-secondary">Seguir Comprando</a>
-                <a href="procesar_compra.php" class="btn btn-success">Proceder al Pago</a>
+                <a href="../../app/controllers/Carrito/procesar_compra.php" class="btn btn-success">Proceder al Pago</a>
             </div>
         <?php else: ?>
             <div class="alert alert-warning text-center">
@@ -116,3 +108,16 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
 </body>
 
 </html>
+
+<?php
+if (isset($_GET['compra']) && $_GET['compra'] == 'exitosa') {
+    echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Compra exitosa!',
+            text: 'Tu compra ha sido procesada con éxito.',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>";
+}
+?>
