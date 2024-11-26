@@ -14,5 +14,5 @@ if (isset($_POST['index']) && isset($_SESSION['carrito'])) {
 }
 
 // Redirigir de vuelta al carrito
-header("Location: .../../../../public/carrito.php");
+header("Location: ../../public/carrito.php");
 exit();

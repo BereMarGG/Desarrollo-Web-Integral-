@@ -39,7 +39,7 @@ $rol = $_SESSION['rol'];
                     </li>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="carrito.php">
-                        <i class="bi bi-cart-fill text-light" style="font-size: 1rem;"></i>
+                            <i class="bi bi-cart-fill text-light" style="font-size: 1rem;"></i>
                             <span class="position-absolute top-25 start-30 translate-middle badge rounded-pill bg-danger">
                                 <?= isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0; ?>
                             </span>
@@ -70,8 +70,9 @@ $rol = $_SESSION['rol'];
                         <option value="">Selecciona una categoría</option>
                         <?php
                         // Conexión a la base de datos
-                        $conexion = new mysqli('localhost', 'quack', 'mysql', 'bd_quickyfast');
-                        $categorias = $conexion->query("SELECT * FROM categoria WHERE estado = 1");
+                        require_once '../config/database.php';
+
+                        $categorias = $conn->query("SELECT * FROM categoria WHERE estado = 1");
                         while ($categoria = $categorias->fetch_assoc()) {
                             echo "<option value='{$categoria['idcategoria']}'>{$categoria['nombre']}</option>";
                         }
@@ -85,7 +86,7 @@ $rol = $_SESSION['rol'];
                 <?php
                 if (isset($_GET['categoria']) && !empty($_GET['categoria'])) {
                     $idCategoria = intval($_GET['categoria']);
-                    $articulos = $conexion->query("SELECT * FROM articulo WHERE idcategoria = $idCategoria AND estado = 1");
+                    $articulos = $conn->query("SELECT * FROM articulo WHERE idcategoria = $idCategoria AND estado = 1");
                     while ($articulo = $articulos->fetch_assoc()) {
                         echo "
                 <div class='col-md-4 mb-3'>
@@ -97,6 +98,7 @@ $rol = $_SESSION['rol'];
                             <p class='card-text'>Stock: {$articulo['stock']}</p>
                             <form method='POST' action='../controllers/Articulos/agregar_carrito.php'>
                                 <input type='hidden' name='idarticulo' value='{$articulo['idarticulo']}'>
+                                <input type='hidden' name='stock' value='{$articulo['stock']}'>
                                 <div class='mb-3'>
                                     <label for='cantidad-{$articulo['idarticulo']}' class='form-label'>Cantidad</label>
                                     <input type='number' name='cantidad' id='cantidad-{$articulo['idarticulo']}' class='form-control' min='1' max='{$articulo['stock']}' required>
