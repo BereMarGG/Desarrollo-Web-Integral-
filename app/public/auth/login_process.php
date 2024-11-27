@@ -56,7 +56,7 @@ if ($result->num_rows > 0) {
         if ($user['idrol'] == 1) { // Admin
             header("Location: ../home.php");
         } elseif ($user['idrol'] == 2) { // Cliente
-            header("Location: ../client_home.php");
+            header("Location: ../home.php");
         } else {
             header("Location: home.php");
         }
