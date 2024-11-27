@@ -85,7 +85,7 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
                             </td>
                             <td class="text-center">$<?= number_format($totalArticulo, 2); ?></td>
                             <td class="text-center">
-                                <form action="eliminar_del_carrito.php" method="post">
+                                <form action="../controllers/Carrito/eliminar_del_carrito.php" method="post">
                                     <input type="hidden" name="index" value="<?= $index; ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
