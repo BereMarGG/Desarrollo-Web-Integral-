@@ -88,6 +88,11 @@ $historialVentas = $ventaController->obtenerHistorial($idCliente);
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
+                            <div class="card-footer text-end">
+                                <a href="../controllers/PdfController.php?idventa=<?= $venta['idventa']; ?>" class="btn btn-primary">
+                                    Descargar Ticket
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
