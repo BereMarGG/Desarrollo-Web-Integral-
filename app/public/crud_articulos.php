@@ -6,11 +6,15 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
 }
 
 // Conexión a la base de datos
-require_once 'database.php';
+require_once '../config/database.php';
 
 // Consultar artículos
-$sql = "SELECT * FROM articulos";
+$sql = "SELECT * FROM articulo";
 $result = $conn->query($sql);
+
+if (!$result) {
+    die("Error en la consulta: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,17 +37,27 @@ $result = $conn->query($sql);
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php if ($result->num_rows == 0): ?>
+                <!-- Mensaje si no hay artículos -->
                 <tr>
-                    <td><?= $row['id']; ?></td>
-                    <td><?= $row['nombre']; ?></td>
-                    <td><?= $row['precio']; ?></td>
-                    <td>
-                        <a href="editar_articulo.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="eliminar_articulo.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                    <td colspan="4" class="text-center">
+                        <h5>No hay artículos disponibles</h5>
                     </td>
                 </tr>
-            <?php endwhile; ?>
+            <?php else: ?>
+                <!-- Iterar artículos si hay filas -->
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['id']); ?></td>
+                        <td><?= htmlspecialchars($row['nombre']); ?></td>
+                        <td><?= htmlspecialchars($row['precio']); ?></td>
+                        <td>
+                            <a href="editar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="eliminar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

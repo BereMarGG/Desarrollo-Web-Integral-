@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -18,6 +18,7 @@ $rol = $_SESSION['rol'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,7 +37,7 @@ $rol = $_SESSION['rol'];
                             <a class="nav-link" href="crud_articulos.php">CRUD Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="crud_usuarios.php">CRUD Usuarios</a>
+                            <a class="nav-link" href="crud_usuario.php">CRUD Usuarios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="crud_compras.php">CRUD Compras</a>
@@ -45,6 +46,14 @@ $rol = $_SESSION['rol'];
                         <li class="nav-item">
                             <a class="nav-link" href="comprar_articulos.php">Comprar Artículos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="carrito.php">
+                            <i class="bi bi-cart-fill text-light" style="font-size: 1rem;"></i>
+                                <span class="position-absolute top-25 start-30 translate-middle badge rounded-pill bg-danger">
+                                    <?= isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0; ?>
+                                </span>
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -52,7 +61,7 @@ $rol = $_SESSION['rol'];
                         <span class="navbar-text text-light">Hola, <?= htmlspecialchars($nombre); ?></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-danger ms-2" href="logout.php">Cerrar Sesión</a>
+                        <a class="nav-link btn btn-danger ms-2" href="auth/logout.php">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
