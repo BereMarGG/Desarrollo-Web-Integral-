@@ -20,6 +20,7 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
     <title>Mi Carrito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -51,7 +52,12 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
     </nav>
 
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Mi Carrito</h1>
+        <h1 class="text-center mb-4">
+            Mi Carrito
+            <a href="historial_compras.php" class="ms-3 text-decoration-none text-secondary">
+                <i class="bi bi-clock-history"></i> Historial de compras
+            </a>
+        </h1>
 
         <?php if (!empty($carrito)): ?>
             <table class="table table-bordered shadow">
