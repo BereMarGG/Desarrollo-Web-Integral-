@@ -31,7 +31,10 @@ if (!$result) {
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Idcategoria</th>
+                <th>Codigo</th>
                 <th>Nombre</th>
+                <th>stock</th>
                 <th>Precio</th>
                 <th>Acciones</th>
             </tr>
@@ -48,12 +51,15 @@ if (!$result) {
                 <!-- Iterar artículos si hay filas -->
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= htmlspecialchars($row['id']); ?></td>
+                        <td><?= htmlspecialchars($row['idarticulo']); ?></td>
+                        <td><?= htmlspecialchars($row['idcategoria']); ?></td>
+                        <td><?= htmlspecialchars($row['codigo']); ?></td>
                         <td><?= htmlspecialchars($row['nombre']); ?></td>
-                        <td><?= htmlspecialchars($row['precio']); ?></td>
+                        <td><?= htmlspecialchars($row['stock']); ?></td>
+                        <td><?= htmlspecialchars($row['precio_venta']); ?></td>
                         <td>
-                            <a href="editar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="eliminar_articulo.php?id=<?= htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="editar_articulo.php?id=<?= htmlspecialchars($row['idarticulo']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="eliminar_articulo.php?id=<?= htmlspecialchars($row['idarticulo']); ?>" class="btn btn-danger btn-sm">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
