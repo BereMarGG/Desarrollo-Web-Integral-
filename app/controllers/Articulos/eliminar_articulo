@@ -1,0 +1,35 @@
+<?php
+session_start();
+
+// Verificar el rol
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+    header("Location: ../../views/home.php");
+    exit();
+}
+
+// Incluir configuración de la base de datos
+require_once '../../config/database.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idArticulo = intval($_POST['idarticulo']);
+
+    // Eliminar dependencias manualmente si es necesario
+    $sqlDependencias = "DELETE FROM otra_tabla_relacionada WHERE idarticulo = ?";
+    $stmtDependencias = $conn->prepare($sqlDependencias);
+    $stmtDependencias->bind_param("i", $idArticulo);
+    $stmtDependencias->execute();
+
+    // Consulta para eliminar el artículo
+    $sql = "DELETE FROM articulo WHERE idarticulo = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idArticulo);
+
+    if ($stmt->execute()) {
+        header("Location: ../../public/crud_articulos.php");
+        exit();
+    } else {
+        die("Error al eliminar el artículo: " . $stmt->error);
+    }
+}
+
+?>
